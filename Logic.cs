@@ -35,16 +35,13 @@ namespace TF2Logic
             {
                 return false;
             }
-
             if (hp < 0)
             {
                 return false;
             }
-
             if (primary == "") primary = "Нет";
             if (secondary == "") secondary = "Нет";
             if (melee == "") melee = "Нет";
-
             Mercenary newMerc = new Mercenary(idCounter, name, primary, secondary, melee, hp, role);
             idCounter++;
             roster.Add(newMerc);
@@ -113,16 +110,13 @@ namespace TF2Logic
             {
                 return false;
             }
-
             if (hp < 0)
             {
                 return false;
             }
-
             if (primary == "") primary = "Нет";
             if (secondary == "") secondary = "Нет";
             if (melee == "") melee = "Нет";
-
             for (int i = 0; i < roster.Count; i++)
             {
                 if (roster[i].Id == id)
@@ -144,7 +138,6 @@ namespace TF2Logic
         {
             List<string> report = new List<string>();
             List<string> uniqueRoles = new List<string>();
-
             foreach (Mercenary m in roster)
             {
                 bool alreadyHave = false;
@@ -160,7 +153,6 @@ namespace TF2Logic
                     uniqueRoles.Add(m.Role);
                 }
             }
-
             foreach (string role in uniqueRoles)
             {
                 report.Add("--- Роль: " + role + " ---");
@@ -173,13 +165,11 @@ namespace TF2Logic
                 }
                 report.Add("");
             }
-
             return report;
         }
 
         /// <summary>
-        /// Ищет наёмников, у которых в любом из трёх слотов оружия
-        /// встречается указанная подстрока (без учёта регистра).
+        /// Ищет наёмников, у которых встречается указанная подстрока.
         /// </summary>
         /// <param name="weaponName">Часть названия оружия для поиска.</param>
         /// <returns>Список наёмников, у которых найдено совпадение.</returns>
@@ -187,19 +177,14 @@ namespace TF2Logic
         {
             List<Mercenary> found = new List<Mercenary>();
             string search = weaponName.ToLower();
-
             foreach (Mercenary m in roster)
             {
                 string p = m.PrimaryWeapon.ToLower();
-                string s = m.SecondaryWeapon.ToLower();
-                string ml = m.MeleeWeapon.ToLower();
-
-                if (p.Contains(search) || s.Contains(search) || ml.Contains(search))
+                if (p.Contains(search))
                 {
                     found.Add(m);
                 }
             }
-
             return found;
         }
     }
